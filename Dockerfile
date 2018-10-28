@@ -18,6 +18,7 @@ ENV LANG="C.UTF-8"
 COPY package*.json ./
 COPY .babelrc ./
 COPY src ./src
+COPY config ./config
 
 RUN npm ci && npm run build
 
