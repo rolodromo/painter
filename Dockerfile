@@ -22,6 +22,8 @@ COPY config ./config
 
 RUN npm ci && npm run build
 
+COPY src/views lib/views
+
 RUN rm .babelrc src -rf && npm prune --production
 
 # Add user so we don't need --no-sandbox.
