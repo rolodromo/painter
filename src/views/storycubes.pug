@@ -1,0 +1,85 @@
+doctype html
+head
+  meta(charset='utf-8')
+  title Storycubes
+  // Normalize or reset CSS with your favorite library
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css')
+  link(rel='stylesheet' href='https://unpkg.com/@rolodromo/gameicons-webfont/css/rpgen-gameicons.min.css')
+  style.
+
+    .container {
+      margin: 0;
+      padding: 0.5em;
+      width: 36.5em;
+      height: 36.5em;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0.2em;
+      width: 32%;
+      text-align: center;
+      object-fit: contain;
+      border-radius: 10%;
+      background-color: #ece9c3;
+      box-shadow: inset 0 0.03em #e2dab3,
+      inset 0 -0.03em #a7a184,
+      inset 0.01em 0 #d7cfaa,
+      inset -0.03em 0 #a7a184;
+    }
+    .col .gi {
+      font-size: 8em;
+    }
+
+    .gi-inset {
+      color: transparent;
+      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8),
+      0 0 0 rgba(0, 0, 0, 1),
+      2px 2px 3px rgba(255, 255, 255, 0.4);
+    }
+
+    .gi-color-green {
+      color: rgba(144, 255, 41, 0.6);
+    }
+
+    .gi-color-red {
+      color: rgba(255, 41, 41, 0.6);
+    }
+
+    .gi-color-blue {
+      color: rgba(41, 84, 255, 0.6);
+    }
+
+    .gi-color-yellow {
+      color: rgba(255, 248, 41, 0.6);
+    }
+
+    .gi-color-orangine {
+      color: rgba(255, 101, 41, 0.6);
+    }
+
+    .gi-color-pink {
+      color: rgba(255, 41, 248, 0.6);
+    }
+
+    .gi-color-grey {
+      color: rgba(15, 0, 15, 0.6);
+    }
+
+    .gi-color-lime {
+      color: rgba(195, 255, 0, 0.6);
+    }
+
+    .gi-color-cyan {
+      color: rgba(0, 242, 255, 0.6);
+    }
+
+body
+  div.container
+    each row in icons
+      div.col
+        i.gi.gi-inset.gi-6x(class=row.color class=row.icon)

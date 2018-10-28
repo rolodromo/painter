@@ -1,5 +1,6 @@
 import app from './app'
+import config from '../config'
 
-app.listen(3005, () => {
-  console.log('Listening on 3005')
+app.listen(config.port, () => {
+  console.log(`Listening on ${config.port}`)
 })

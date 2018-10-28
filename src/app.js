@@ -1,47 +1,29 @@
-import bytes from 'bytes'
+import path from 'path'
+import errors from 'restify-errors'
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import { getBrowser } from './browser'
+import registerRouters from './routes'
+import { cleanQueryParams } from './clean_query_params'
 
 const app = express()
+app.set('view engine', 'pug')
+app.set('views', path.join(__dirname, 'views'))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use((req, res, next) => {
-  const html = req.body.content
-  console.log(`> ${req.method} ${req.url}. length: ${bytes(html.length)}`)
+  console.log(`> ${req.method} ${req.url}`)
+  console.log(cleanQueryParams(req.query))
   next()
 })
 
-app.post('/png', async (req, res) => {
-  const html = req.body.content
-  const browser = await getBrowser()
-  const page = await browser.newPage()
+registerRouters(app)
 
-  await page.goto(`data:text/html,${html}`, { waitUntil: 'networkidle0' })
-  res.header('Content-Type', 'image/png')
-  res.send(await page.screenshot({
-    type: 'png',
-    fullPage: true,
-    printBackground: true
-  }))
-})
-
-app.post('/pdf', async (req, res) => {
-  const html = req.body.content
-  const browser = await getBrowser()
-  const page = await browser.newPage()
-
-  await page.goto(`data:text/html,${html}`, { waitUntil: 'networkidle0' })
-
-  res.setHeader('Content-Disposition', 'inline; filename="print.pdf"')
-  res.send(await page.pdf({
-    format: 'A4',
-    landscape: true,
-    printBackground: true
-  }))
+app.use((err, req, res, next) => {
+  console.error(err.message, err.stack)
+  res.status(500).send(new errors.InternalServerError(err.message))
 })
 
 export default app
